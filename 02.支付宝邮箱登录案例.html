@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+</head>
+
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body{
+            background-color: #efefef;
+        }
+        #app{
+            margin: 100px auto;
+            width: 600px;
+            background: #fff;
+            border: 1px solid #ccc;
+            height: 400px;
+            padding: 30px 80px;
+            position: relative;
+        }
+        ul{
+            position: absolute;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px #efefef;
+            width:438px;
+        }
+        ul li:hover{
+            height: 30px;
+            background-color: bisque;
+        }
+        button{
+            position: relative;
+            top: 10px;
+            left: 320px;
+        }
+       
+    </style>
+    <div id="app">
+        <div>
+            <form action="@submit.prevent">
+                用户名：<input type="text" class="form-control" placeholder="请输入邮箱" v-model="text" @click="t1">
+                <ul v-if="text">
+                    <li v-for="item in email">{{dealText}}@{{item}}.com</li>
+                </ul>
+                <br>
+                密码：<input type="password" class="form-control" placeholder="请输入密码"v-model="password">
+                <button type="submit" :disabled="isValid" class="btn btn-primary">注册</button>
+                <button type="submit" :disabled="isValid" class="btn btn-primary">登录</button>
+            </form>
+        
+        </div>
+    </div>
+    <script>
+        var vm=new Vue({
+           el:'#app',
+           data:{
+               text:'',
+               password:'',
+               email:['qq','163','126','sina']
+           },
+           computed:{
+               isValid(){
+                   return String(this.text).match(/^1\d{10}$/)&&String(this.password).length>=6
+               }
+           },
+           methods:{
+               dealText(){
+                   return this.text.slice(0,this.indexOf('@'))
+               },
+               login(){
+                   alert(this.text)
+               }
+           }
+        });
+    </script>
+</body>
+
+</html>
